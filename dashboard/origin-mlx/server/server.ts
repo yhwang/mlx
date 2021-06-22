@@ -196,11 +196,13 @@ function getForwardProxyMiddleware(login: boolean, rewritePath?: string) :
       if (req.user) {
         proxyReq.setHeader(KUBEFLOW_USERID_HEADER, req.user.email);
       }
+      console.log(`proxy headers: ${JSON.stringify(proxyReq.getHeaders(), null, 2)}`);
       console.log('Proxied request: ', proxyReq.path);
     };
   } else {
     proxyOpts.onProxyReq = (proxyReq: ClientRequest, req: express.Request) => {
       proxyReq.setHeader(KUBEFLOW_USERID_HEADER, DEFAULT_ADMIN_EMAIL);
+      console.log(`proxy headers: ${JSON.stringify(proxyReq.getHeaders(), null, 2)}`);
       console.log('Proxied request: ', proxyReq.path);
     };
   }
